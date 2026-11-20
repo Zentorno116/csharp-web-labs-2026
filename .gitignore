@@ -1,0 +1,9 @@
+bin/
+obj/
+node_modules/
+dist/
+*.user
+.vs/
+04_TaskFlowClient/tools/ngrok.exe
+03_TaskFlowApi/TaskFlowApi/wwwroot/assets/
+03_TaskFlowApi/TaskFlowApi/wwwroot/index.html

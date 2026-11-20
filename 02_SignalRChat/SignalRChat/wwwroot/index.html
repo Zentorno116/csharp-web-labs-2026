@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PulseChat — SignalR Чат с комнатами и модераторами</title>
+  <link rel="stylesheet" href="/css/theme.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+</head>
+<body>
+  <div id="authModal" class="modal-backdrop">
+    <form id="authForm" class="modal-card">
+      <div class="brand-logo">⚡ PulseChat</div>
+      <p class="muted">Реалтайм чат на ASP.NET Core SignalR с комнатами и системой модерации.</p>
+      <label class="field-label" for="usernameInput">Ваш никнейм</label>
+      <input id="usernameInput" class="input" type="text" placeholder="Например: timur или admin" maxlength="24" required autofocus />
+      <div class="hint-box">
+        <strong>Подсказка:</strong> войдите как <code>admin</code> для прав Владельца в общих комнатах,
+        как <code>moderator</code> для прав Модератора, или создайте свою комнату под любым ником.
+      </div>
+      <div id="authError" class="error-text"></div>
+      <button type="submit" class="btn btn-primary w-full">Войти в чат</button>
+    </form>
+  </div>
+
+  <div id="appShell" class="app-shell hidden">
+    <aside class="sidebar rooms-sidebar">
+      <div class="sidebar-header">
+        <div class="brand-mini">⚡ PulseChat</div>
+        <button id="themeToggleBtn" class="icon-btn" title="Сменить тему">🌓</button>
+      </div>
+      <div class="section-row">
+        <span class="section-title">Комнаты</span>
+        <button id="openCreateRoomBtn" class="btn-chip">+ Создать</button>
+      </div>
+      <div id="roomsList" class="rooms-list"></div>
+      <div class="user-footer">
+        <div id="selfAvatar" class="avatar"></div>
+        <div class="user-meta">
+          <div id="selfName" class="user-name"></div>
+          <div id="selfStatus" class="status-online">● В сети</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="chat-main">
+      <header class="chat-header">
+        <div>
+          <div class="room-title-row">
+            <h1 id="activeRoomName"># Выберите комнату</h1>
+            <span id="myRoleBadge" class="role-badge hidden"></span>
+          </div>
+          <p id="activeRoomDesc" class="muted small"></p>
+        </div>
+        <div class="header-actions">
+          <button id="openBansBtn" class="btn btn-ghost hidden">🚫 Баны (<span id="bansCount">0</span>)</button>
+          <button id="deleteRoomBtn" class="btn btn-danger hidden">🗑 Удалить комнату</button>
+        </div>
+      </header>
+
+      <section id="messagesFeed" class="messages-feed"></section>
+      <div id="typingBar" class="typing-bar"></div>
+
+      <form id="messageForm" class="composer">
+        <input id="messageInput" class="input composer-input" type="text" placeholder="Напишите сообщение..." maxlength="1000" disabled autocomplete="off" />
+        <button id="sendBtn" type="submit" class="btn btn-primary" disabled>Отправить ➤</button>
+      </form>
+    </main>
+
+    <aside class="sidebar members-sidebar">
+      <div class="sidebar-header">
+        <span class="section-title">Участники (<span id="membersCount">0</span>)</span>
+      </div>
+      <div id="membersList" class="members-list"></div>
+    </aside>
+  </div>
+
+  <div id="createRoomModal" class="modal-backdrop hidden"></div>
+  <div id="bansModal" class="modal-backdrop hidden"></div>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="/lib/signalr/signalr.min.js"></script>
+  <script src="/js/state.js"></script>
+  <script src="/js/render.js"></script>
+  <script src="/js/renderModals.js"></script>
+  <script src="/js/actions.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

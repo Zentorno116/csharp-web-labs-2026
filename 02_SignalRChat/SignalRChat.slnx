@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="SignalRChat.Tests/SignalRChat.Tests.csproj" />
+  <Project Path="SignalRChat/SignalRChat.csproj" />
+</Solution>
